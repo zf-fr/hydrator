@@ -36,4 +36,14 @@ class CallableFilter implements FilterInterface
 
         return $callable($property);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        $callable = $this->callable;
+
+        return array_filter($properties, $callable);
+    }
 }

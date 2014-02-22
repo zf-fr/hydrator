@@ -23,4 +23,13 @@ interface FilterInterface
      * @return bool
      */
     public function accept($property, $context = null);
+
+    /**
+     * Filter a bunch of properties and only return those that are accepted
+     *
+     * @param  array  $properties
+     * @param  object $context
+     * @return array
+     */
+    public function filter(array $properties, $context = null);
 }

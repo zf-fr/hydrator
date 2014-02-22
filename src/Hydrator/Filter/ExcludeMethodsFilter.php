@@ -39,4 +39,14 @@ class ExcludeMethodsFilter implements FilterInterface
 
         return !in_array(substr($property, $pos), $this->methods);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
+    }
 }

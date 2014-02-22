@@ -24,4 +24,14 @@ class GetFilter implements FilterInterface
 
         return substr($property, $pos, 3) === 'get';
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
+    }
 }

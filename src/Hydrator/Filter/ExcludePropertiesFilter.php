@@ -26,8 +26,7 @@ class ExcludePropertiesFilter implements FilterInterface
      */
     public function __construct($properties)
     {
-        // Flipping is an optimization to allow us "isset"
-        $this->properties = array_flip($properties);
+        $this->properties = $properties;
     }
 
     /**
@@ -35,6 +34,14 @@ class ExcludePropertiesFilter implements FilterInterface
      */
     public function accept($property, $context = null)
     {
-        return isset($this->properties[$property]);
+        return in_array($property, $this->properties, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_intersect($this->properties, $properties);
     }
 }

@@ -125,4 +125,20 @@ class CompositeFilter implements FilterInterface
         // If we're here, then all filters evaluated to true
         return true;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        if (empty($this->filters)) {
+            return $properties;
+        }
+
+        foreach ($this->filters as $filter) {
+            $properties = $filter->filter($properties, $context);
+        }
+
+        return $properties;
+    }
 }

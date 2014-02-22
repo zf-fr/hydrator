@@ -11,7 +11,7 @@ namespace Zfr\Hydrator\Filter;
 
 use ReflectionException;
 use ReflectionMethod;
-use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zfr\Hydrator\Exception\InvalidArgumentException;
 
 /**
  * This filter accepts any method that have a given number of accepted parameters
@@ -47,5 +47,15 @@ class NumberOfParametersFilter implements FilterInterface
         }
 
         return $reflectionMethod->getNumberOfParameters() === $this->numberOfParameters;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
     }
 }

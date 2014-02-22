@@ -24,4 +24,14 @@ class HasFilter implements FilterInterface
 
         return substr($property, $pos, 3) === 'has';
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
+    }
 }

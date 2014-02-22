@@ -24,4 +24,14 @@ class IsFilter implements FilterInterface
 
         return substr($property, $pos, 2) === 'is';
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
+    }
 }

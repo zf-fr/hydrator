@@ -11,7 +11,7 @@ namespace Zfr\Hydrator\Filter;
 
 use ReflectionException;
 use ReflectionMethod;
-use Zend\Hydrator\Exception\InvalidArgumentException;
+use Zfr\Hydrator\Exception\InvalidArgumentException;
 
 /**
  * This filter accepts any method that don't have any required parameters (only optional)
@@ -42,5 +42,15 @@ class OptionalParametersFilter implements FilterInterface
         }
 
         return self::$propertiesCache[$property] = ($reflectionMethod->getNumberOfRequiredParameters() === 0);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function filter(array $properties, $context = null)
+    {
+        return array_filter($properties, function($property) use ($context) {
+            return $this->accept($property, $context);
+        });
     }
 }

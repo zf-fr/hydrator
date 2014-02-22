@@ -42,14 +42,14 @@ class ClassMethodsHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        $methods = get_class_methods($object);
+        $methods = $this->compositeFilter->filter(get_class_methods($object));
         $result  = array();
 
         foreach ($methods as $method) {
             // Remove get/is/has prefix from method, so that we get property name
             $property = preg_filter(array('/get/', '/is/', '/has/'), '', $method);
 
-            if (null === $property || !$this->compositeFilter->accept($method, $object)) {
+            if (null === $property) {
                 continue;
             }
 
