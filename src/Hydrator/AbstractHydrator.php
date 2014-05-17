@@ -42,10 +42,14 @@ abstract class AbstractHydrator implements HydratorInterface
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(array $strategies = [])
     {
         $this->compositeFilter = new CompositeFilter();
         $this->namingStrategy  = new UnderscoreNamingStrategy();
+
+        foreach ($strategies as $name => $strategy) {
+            $this->setStrategy($name, $strategy);
+        }
     }
 
     /**
