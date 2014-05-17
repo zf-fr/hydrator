@@ -9,14 +9,13 @@
 
 namespace Hydrator;
 
-interface HydrationInterface
+interface ExtractInterface
 {
     /**
-     * Hydrate $object with the provided $data.
+     * Extract values from an object
      *
-     * @param  array  $data
      * @param  object $object
-     * @return object
+     * @return array
      */
-    public function hydrate(array $data, $object);
+    public function extract($object);
 }

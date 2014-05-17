@@ -14,7 +14,7 @@ use Hydrator\Context\ExtractionContext;
 /**
  * This filter accepts any method that starts with "has"
  */
-class HasFilter implements FilterInterface
+final class HasFilter implements FilterInterface
 {
     /**
      * {@inheritDoc}

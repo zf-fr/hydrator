@@ -57,15 +57,6 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertEmpty($compositeFilter->getFilters());
     }
 
-    public function testDefaultConditionIsOr()
-    {
-        $compositeFilter = new CompositeFilter();
-        $this->assertEquals(CompositeFilter::CONDITION_OR, $compositeFilter->getType());
-
-        $compositeFilter->setType(CompositeFilter::CONDITION_AND);
-        $this->assertEquals(CompositeFilter::CONDITION_AND, $compositeFilter->getType());
-    }
-
     public function testAlwaysAcceptIfNoFilters()
     {
         $compositeFilter = new CompositeFilter();

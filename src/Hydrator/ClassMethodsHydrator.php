@@ -30,6 +30,13 @@ use Hydrator\Filter\OptionalParametersFilter;
 class ClassMethodsHydrator extends AbstractHydrator
 {
     /**
+     * Holds the methods for a given object
+     *
+     * @var array
+     */
+    private $objectMethodsCache = [];
+
+    /**
      * Holds the names of the methods used for hydration, indexed by class::property name,
      * false if the hydration method is not callable/usable for hydration purposes
      *
@@ -52,11 +59,10 @@ class ClassMethodsHydrator extends AbstractHydrator
     {
         parent::__construct();
 
-        $this->compositeFilter->setType(CompositeFilter::CONDITION_AND);
-        $this->compositeFilter->addFilter(new CompositeFilter([
-            new GetFilter(), new HasFilter(), new IsFilter()
-        ]));
-        $this->compositeFilter->addFilter(new OptionalParametersFilter());
+        $filter1 = new CompositeFilter([new GetFilter(), new HasFilter(), new IsFilter()]);
+        $filter2 = new CompositeFilter([new OptionalParametersFilter()]);
+
+        $this->compositeFilter = new CompositeFilter([$filter1, $filter2], CompositeFilter::CONDITION_AND);
     }
 
     /**
@@ -66,9 +72,13 @@ class ClassMethodsHydrator extends AbstractHydrator
     {
         $objectClass = get_class($object);
 
-        $methods = get_class_methods($object);
-        $result  = [];
+        if (isset($this->objectMethodsCache[$objectClass])) {
+            $methods = $this->objectMethodsCache[$objectClass];
+        } else {
+            $methods = $this->objectMethodsCache[$objectClass] = get_class_methods($object);
+        }
 
+        $result  = [];
         $context = new ExtractionContext($object);
 
         // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)

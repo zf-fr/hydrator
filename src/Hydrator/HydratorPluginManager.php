@@ -18,31 +18,33 @@ use Zend\Stdlib\Hydrator\HydratorInterface as Zf2HydratorInterface;
  *
  * @author  Michaël Gallego <mic.gallego@gmail.com>
  * @licence MIT
+ *
+ * @method HydratorInterface get($name)
  */
 class HydratorPluginManager extends AbstractPluginManager
 {
     /**
-     * @var array
+     * @var string[]
      */
     protected $invokableClasses = array(
-        'Zend\Hydrator\ArraySerializableHydrator' => 'Zend\Hydrator\ArraySerializableHydrator',
-        'Zend\Hydrator\ClassMethodsHydrator'      => 'Zend\Hydrator\ClassMethodsHydrator',
-        'Zend\Hydrator\ObjectPropertyHydrator'    => 'Zend\Hydrator\ObjectPropertyHydrator',
-        'Zend\Hydrator\ReflectionHydrator'        => 'Zend\Hydrator\ReflectionHydrator'
+        ArraySerializableHydrator::class => ArraySerializableHydrator::class,
+        ClassMethodsHydrator::class      => ClassMethodsHydrator::class,
+        ObjectPropertyHydrator::class    => ObjectPropertyHydrator::class,
+        ReflectionHydrator::class        => ReflectionHydrator::class
     );
 
     /**
-     * @var array
+     * @var string[]
      */
     protected $aliases = array(
-        'ArraySerializableHydrator' => 'Zend\Hydrator\ArraySerializableHydrator',
-        'ArraySerializable'         => 'Zend\Hydrator\ArraySerializableHydrator', // ZF2 compat
-        'ClassMethodsHydrator'      => 'Zend\Hydrator\ClassMethodsHydrator',
-        'ClassMethods'              => 'Zend\Hydrator\ClassMethodsHydrator', // ZF2 compat
-        'ObjectPropertyHydrator'    => 'Zend\Hydrator\ObjectPropertyHydrator',
-        'ObjectProperty'            => 'Zend\Hydrator\ObjectPropertyHydrator', // ZF2 compat
-        'ReflectionHydrator'        => 'Zend\Hydrator\ReflectionHydrator',
-        'Reflection'                => 'Zend\Hydrator\ReflectionHydrator' // ZF2 compat
+        'ArraySerializableHydrator' => ArraySerializableHydrator::class,
+        'ArraySerializable'         => ArraySerializableHydrator::class, // ZF2 compat
+        'ClassMethodsHydrator'      => ClassMethodsHydrator::class,
+        'ClassMethods'              => ClassMethodsHydrator::class, // ZF2 compat
+        'ObjectPropertyHydrator'    => ObjectPropertyHydrator::class,
+        'ObjectProperty'            => ObjectPropertyHydrator::class, // ZF2 compat
+        'ReflectionHydrator'        => ReflectionHydrator::class,
+        'Reflection'                => ReflectionHydrator::class // ZF2 compat
     );
 
     /**

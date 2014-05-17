@@ -17,14 +17,14 @@ use ReflectionMethod;
 /**
  * This filter accepts any method that have a given number of accepted parameters
  */
-class NumberOfParametersFilter implements FilterInterface
+final class NumberOfParametersFilter implements FilterInterface
 {
     /**
      * The number of parameters being accepted
      *
      * @var int
      */
-    protected $numberOfParameters = 0;
+    private $numberOfParameters;
 
     /**
      * @param int $numberOfParameters Number of accepted parameters
@@ -46,7 +46,7 @@ class NumberOfParametersFilter implements FilterInterface
         try {
             $reflectionMethod = new ReflectionMethod($context->getObject(), $property);
         } catch (ReflectionException $exception) {
-            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property));
+            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property), 0, $exception);
         }
 
         return $reflectionMethod->getNumberOfParameters() === $this->numberOfParameters;

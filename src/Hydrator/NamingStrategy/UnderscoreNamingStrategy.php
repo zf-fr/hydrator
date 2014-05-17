@@ -29,7 +29,7 @@ use Hydrator\Context\HydrationContext;
  * This is a very sensitive performance class, so we need optimized string methods instead of
  * Zend filters. Do not change that unless you know what you're doing!
  */
-class UnderscoreNamingStrategy implements NamingStrategyInterface
+final class UnderscoreNamingStrategy implements NamingStrategyInterface
 {
     /**
      * {@inheritDoc}

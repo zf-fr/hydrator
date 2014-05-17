@@ -14,19 +14,19 @@ use Hydrator\Context\ExtractionContext;
 /**
  * This filter accepts any method where the callable returns true
  */
-class CallbackFilter implements FilterInterface
+final class CallbackFilter implements FilterInterface
 {
     /**
      * @var callable
      */
-    protected $callable;
+    private $callback;
 
     /**
-     * @param callable $callable
+     * @param callable $callback
      */
-    public function __construct(callable $callable)
+    public function __construct(callable $callback)
     {
-        $this->callable = $callable;
+        $this->callback = $callback;
     }
 
     /**
@@ -34,8 +34,8 @@ class CallbackFilter implements FilterInterface
      */
     public function accept($property, ExtractionContext $context = null)
     {
-        $callable = $this->callable;
+        $callback = $this->callback;
 
-        return $callable($property);
+        return $callback($property);
     }
 }

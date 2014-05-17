@@ -23,7 +23,7 @@ class ReflectionHydrator extends AbstractHydrator
      *
      * @var array
      */
-    protected static $reflProperties = array();
+    private static $reflProperties = [];
 
     /**
      * {@inheritDoc}

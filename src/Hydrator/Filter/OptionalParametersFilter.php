@@ -17,7 +17,7 @@ use ReflectionMethod;
 /**
  * This filter accepts any method that have only optional parameters
  */
-class OptionalParametersFilter implements FilterInterface
+final class OptionalParametersFilter implements FilterInterface
 {
     /**
      * Map of methods already analyzed by {@see \Zend\Hydrator\Filter\OptionalParametersFilter::filter()},
@@ -43,7 +43,7 @@ class OptionalParametersFilter implements FilterInterface
         try {
             $reflectionMethod = new ReflectionMethod($context->getObject(), $property);
         } catch (ReflectionException $exception) {
-            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property));
+            throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property), 0, $exception);
         }
 
         return self::$propertiesCache[$property] = ($reflectionMethod->getNumberOfRequiredParameters() === 0);

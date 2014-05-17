@@ -47,26 +47,6 @@ class CompositeFilter implements FilterInterface
     }
 
     /**
-     * Set the type of the composite filter
-     *
-     * @param int $type
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    }
-
-    /**
-     * Get the type of the composite filter (CONDITION_OR or CONDITION_AND)
-     *
-     * @return int
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
      * Add a new filter to the composite filter
      *
      * @param  FilterInterface $filter

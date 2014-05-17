@@ -16,6 +16,6 @@ use Zend\Stdlib\Hydrator\HydratorInterface as Zf2HydratorInterface;
  *
  * @TODO: remove ZF2 compatibility
  */
-interface HydratorInterface extends ExtractionInterface, HydrationInterface, Zf2HydratorInterface
+interface HydratorInterface extends ExtractInterface, HydrateInterface, Zf2HydratorInterface
 {
 }

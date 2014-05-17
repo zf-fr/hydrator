@@ -26,13 +26,8 @@ use Hydrator\Context\HydrationContext;
  * Built-in strategy that can outputs Date to a given format. By default, it outputs dates to
  * RFC3339, as this is a widely understood format by all browsers
  */
-class DateStrategy implements StrategyInterface
+final class DateStrategy implements StrategyInterface
 {
-    /**
-     * @var DateTime
-     */
-    protected $dateTime;
-
     /**
      * @var string
      */
@@ -43,8 +38,7 @@ class DateStrategy implements StrategyInterface
      */
     public function __construct($format = DateTime::RFC3339)
     {
-        $this->dateTime = new DateTime();
-        $this->format   = (string) $format;
+        $this->format = (string) $format;
     }
 
     /**
