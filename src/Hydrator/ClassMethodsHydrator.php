@@ -54,10 +54,12 @@ class ClassMethodsHydrator extends AbstractHydrator
 
     /**
      * Constructor
+     *
+     * @param array $strategies
      */
-    public function __construct()
+    public function __construct(array $strategies = [])
     {
-        parent::__construct();
+        parent::__construct($strategies);
 
         $filter1 = new CompositeFilter([new GetFilter(), new HasFilter(), new IsFilter()]);
         $filter2 = new CompositeFilter([new OptionalParametersFilter()]);
