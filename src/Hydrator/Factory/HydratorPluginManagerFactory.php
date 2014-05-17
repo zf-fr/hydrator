@@ -9,7 +9,7 @@
 
 namespace Hydrator\Factory;
 
-use Zend\Hydrator\HydratorPluginManager;
+use Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
