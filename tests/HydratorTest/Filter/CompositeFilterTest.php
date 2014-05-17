@@ -16,17 +16,18 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Filter;
+namespace HydratorTest\Filter;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Filter\CompositeFilter;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Filter\CompositeFilter;
+use Hydrator\Filter\FilterInterface;
 
 class CompositeFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanAddFiltersThroughConstructor()
     {
-        $filter1 = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
-        $filter2 = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filter1 = $this->getMock(FilterInterface::class);
+        $filter2 = $this->getMock(FilterInterface::class);
 
         $compositeFilter = new CompositeFilter([$filter1, $filter2]);
 
@@ -35,7 +36,7 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testCanAddAndRemoveFilter()
     {
-        $filter = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filter = $this->getMock(FilterInterface::class);
 
         $compositeFilter = new CompositeFilter();
         $compositeFilter->addFilter($filter);
@@ -47,7 +48,7 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testCanClearFilters()
     {
-        $filter = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filter = $this->getMock(FilterInterface::class);
 
         $compositeFilter = new CompositeFilter();
         $compositeFilter->addFilter($filter);
@@ -74,8 +75,8 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
     public function testOrCondition()
     {
         $compositeFilter = new CompositeFilter();
-        $filterOne       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
-        $filterTwo       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filterOne       = $this->getMock(FilterInterface::class);
+        $filterTwo       = $this->getMock(FilterInterface::class);
 
         $context = new ExtractionContext(new \stdClass());
 
@@ -96,8 +97,8 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
     public function testAndCondition()
     {
         $compositeFilter = new CompositeFilter([], CompositeFilter::CONDITION_AND);
-        $filterOne       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
-        $filterTwo       = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filterOne       = $this->getMock(FilterInterface::class);
+        $filterTwo       = $this->getMock(FilterInterface::class);
 
         $context = new ExtractionContext(new \stdClass());
 
@@ -122,12 +123,12 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
         $rootCompositeFilter = new CompositeFilter([], CompositeFilter::CONDITION_AND);
 
         $firstCompositeFilter = new CompositeFilter();
-        $filterOne = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filterOne = $this->getMock(FilterInterface::class);
         $filterOne->expects($this->once())->method('accept')->will($this->returnValue(true));
         $firstCompositeFilter->addFilter($filterOne);
 
         $secondCompositeFilter = new CompositeFilter();
-        $filterTwo = $this->getMock('Zend\Hydrator\Filter\FilterInterface');
+        $filterTwo = $this->getMock(FilterInterface::class);
         $filterTwo->expects($this->once())->method('accept')->will($this->returnValue(false));
         $secondCompositeFilter->addFilter($filterTwo);
 

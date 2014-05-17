@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Factory;
+namespace Hydrator\Factory;
 
 use Zend\Hydrator\HydratorPluginManager;
 use Zend\ServiceManager\FactoryInterface;

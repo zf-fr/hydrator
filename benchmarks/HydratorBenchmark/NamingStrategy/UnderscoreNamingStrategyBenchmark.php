@@ -16,57 +16,36 @@
  * and is licensed under the MIT license.
  */
 
-namespace HydratorTest\Asset;
+namespace HydratorBenchmark\NamingStrategy;
 
-class ClassMethods
+use Athletic\AthleticEvent;
+use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+
+class UnderscoreNamingStrategyBenchmark extends AthleticEvent
 {
-    protected $firstName;
-    protected $lastName;
-    protected $isDead;
-    protected $hasDog;
+    /**
+     * @var UnderscoreNamingStrategy
+     */
+    protected $strategy;
 
-    public function setFirstName($firstName)
+    public function classSetUp()
     {
-        $this->firstName = (string) $firstName;
+        $this->strategy = new UnderscoreNamingStrategy();
     }
 
-    public function getFirstName()
+    /**
+     * @iterations 1000
+     */
+    public function extractName()
     {
-        return $this->firstName;
+        $this->strategy->getNameForExtraction('firstName');
     }
 
-    public function setLastName($lastName)
+    /**
+     * @iterations 1000
+     */
+    public function hydrateName()
     {
-        $this->lastName = (string) $lastName;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    public function setIsDead($isDead)
-    {
-        $this->isDead = (bool) $isDead;
-    }
-
-    public function isDead()
-    {
-        return $this->isDead;
-    }
-
-    public function setHasDog($hasDog)
-    {
-        $this->hasDog = (bool) $hasDog;
-    }
-
-    public function hasDog()
-    {
-        return $this->hasDog;
-    }
-
-    public function getMethodWithRequiredParameter($requiredParameter)
-    {
-        return 'foo';
+        $this->strategy->getNameForHydration('first_name');
     }
 }

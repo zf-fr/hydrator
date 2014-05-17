@@ -16,7 +16,7 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Asset;
+namespace HydratorTest\Asset;
 
 class NumberOfParametersObject
 {

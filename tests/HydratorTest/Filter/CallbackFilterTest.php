@@ -16,9 +16,9 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Filter;
+namespace HydratorTest\Filter;
 
-use Zend\Hydrator\Filter\CallbackFilter;
+use Hydrator\Filter\CallbackFilter;
 
 class CallbackFilterTest extends \PHPUnit_Framework_TestCase
 {

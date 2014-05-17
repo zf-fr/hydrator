@@ -7,10 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Strategy;
+namespace Hydrator\Strategy;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
 
 /**
  * A strategy is a very powerful concept that allows to alter a property before extracting or

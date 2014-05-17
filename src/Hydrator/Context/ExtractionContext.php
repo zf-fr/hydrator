@@ -16,7 +16,7 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\Context;
+namespace Hydrator\Context;
 
 /**
  * Extraction context

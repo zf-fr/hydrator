@@ -16,57 +16,30 @@
  * and is licensed under the MIT license.
  */
 
-namespace HydratorTest\Asset;
+ini_set('error_reporting', E_ALL);
 
-class ClassMethods
-{
-    protected $firstName;
-    protected $lastName;
-    protected $isDead;
-    protected $hasDog;
+$files = [__DIR__ . '/../vendor/autoload.php', __DIR__ . '/../../../autoload.php'];
 
-    public function setFirstName($firstName)
-    {
-        $this->firstName = (string) $firstName;
+foreach ($files as $file) {
+    if (file_exists($file)) {
+        $loader = require $file;
+
+        break;
     }
+}
 
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
+if (! isset($loader)) {
+    throw new RuntimeException('vendor/autoload.php could not be found. Did you install via composer?');
+}
 
-    public function setLastName($lastName)
-    {
-        $this->lastName = (string) $lastName;
-    }
+$loader->add('HydratorTest\\', __DIR__);
 
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
+$configFiles = [__DIR__ . '/TestConfiguration.php', __DIR__ . '/TestConfiguration.php.dist'];
 
-    public function setIsDead($isDead)
-    {
-        $this->isDead = (bool) $isDead;
-    }
+foreach ($configFiles as $configFile) {
+    if (file_exists($configFile)) {
+        $config = require $configFile;
 
-    public function isDead()
-    {
-        return $this->isDead;
-    }
-
-    public function setHasDog($hasDog)
-    {
-        $this->hasDog = (bool) $hasDog;
-    }
-
-    public function hasDog()
-    {
-        return $this->hasDog;
-    }
-
-    public function getMethodWithRequiredParameter($requiredParameter)
-    {
-        return 'foo';
+        break;
     }
 }

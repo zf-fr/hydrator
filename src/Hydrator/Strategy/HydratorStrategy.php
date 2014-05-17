@@ -16,11 +16,11 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\Strategy;
+namespace Hydrator\Strategy;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
-use Zend\Hydrator\HydratorInterface;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
+use Hydrator\HydratorInterface;
 
 /**
  * This strategy allows to set another hydrator for a given strategy. This is especially

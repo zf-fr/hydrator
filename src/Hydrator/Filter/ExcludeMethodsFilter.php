@@ -7,9 +7,9 @@
  * @license        http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Filter;
+namespace Hydrator\Filter;
 
-use Zend\Hydrator\Context\ExtractionContext;
+use Hydrator\Context\ExtractionContext;
 
 /**
  * This filter exclude any methods that have a name in the array

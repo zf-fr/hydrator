@@ -7,11 +7,11 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator;
+namespace Hydrator;
 
 use ReflectionClass;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
 
 /**
  * This hydrator uses Reflection API to extract/hydrate

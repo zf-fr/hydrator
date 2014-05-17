@@ -16,11 +16,12 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Filter;
+namespace HydratorTest\Filter;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Filter\NumberOfParametersFilter;
-use ZendTest\Hydrator\Asset\NumberOfParametersObject;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Exception\InvalidArgumentException;
+use Hydrator\Filter\NumberOfParametersFilter;
+use HydratorTest\Asset\NumberOfParametersObject;
 
 class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
 {
@@ -46,10 +47,7 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
 
     public function testThrowExceptionForUnknownMethod()
     {
-        $this->setExpectedException(
-            'Zend\Hydrator\Exception\InvalidArgumentException',
-            'Method "unknownMethod" does not exist'
-        );
+        $this->setExpectedException(InvalidArgumentException::class, 'Method "unknownMethod" does not exist');
 
         $object  = new NumberOfParametersObject();
         $context = new ExtractionContext($object);

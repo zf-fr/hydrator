@@ -7,7 +7,7 @@
  * @license        http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Exception;
+namespace Hydrator\Exception;
 
 /**
  * Base interface for all Zend\Hydrator exceptions

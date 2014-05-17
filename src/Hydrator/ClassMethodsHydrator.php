@@ -7,16 +7,15 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator;
+namespace Hydrator;
 
-use ProxyManager\ProxyGenerator\Hydrator\MethodGenerator\Extract;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
-use Zend\Hydrator\Filter\CompositeFilter;
-use Zend\Hydrator\Filter\GetFilter;
-use Zend\Hydrator\Filter\HasFilter;
-use Zend\Hydrator\Filter\IsFilter;
-use Zend\Hydrator\Filter\OptionalParametersFilter;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
+use Hydrator\Filter\CompositeFilter;
+use Hydrator\Filter\GetFilter;
+use Hydrator\Filter\HasFilter;
+use Hydrator\Filter\IsFilter;
+use Hydrator\Filter\OptionalParametersFilter;
 
 /**
  * This hydrator uses getter/setter methods to extract/hydrate, respectively

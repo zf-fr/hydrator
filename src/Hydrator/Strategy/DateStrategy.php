@@ -16,11 +16,11 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\Strategy;
+namespace Hydrator\Strategy;
 
 use DateTime;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
 
 /**
  * Built-in strategy that can outputs Date to a given format. By default, it outputs dates to

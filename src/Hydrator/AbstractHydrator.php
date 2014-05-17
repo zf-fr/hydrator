@@ -7,14 +7,14 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator;
+namespace Hydrator;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
-use Zend\Hydrator\Filter\CompositeFilter;
-use Zend\Hydrator\NamingStrategy\NamingStrategyInterface;
-use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
-use Zend\Hydrator\Strategy\StrategyInterface;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
+use Hydrator\Filter\CompositeFilter;
+use Hydrator\NamingStrategy\NamingStrategyInterface;
+use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+use Hydrator\Strategy\StrategyInterface;
 
 /**
  * This abstract hydrator provides a built-in support for filters and strategies. All

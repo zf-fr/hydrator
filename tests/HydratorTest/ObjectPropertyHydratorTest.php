@@ -16,10 +16,10 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator;
+namespace HydratorTest;
 
-use Zend\Hydrator\ObjectPropertyHydrator;
-use ZendTest\Hydrator\Asset\ObjectProperty;
+use Hydrator\ObjectPropertyHydrator;
+use HydratorTest\Asset\ObjectProperty;
 
 class ObjectPropertyHydratorTest extends \PHPUnit_Framework_TestCase
 {

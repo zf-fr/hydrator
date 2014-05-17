@@ -7,9 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Filter;
+namespace Hydrator\Filter;
 
-use Zend\Hydrator\Context\ExtractionContext;
+use Hydrator\Context\ExtractionContext;
 
 /**
  * A composite filter is built as a tree of filters

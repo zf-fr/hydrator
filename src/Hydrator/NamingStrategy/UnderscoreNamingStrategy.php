@@ -16,9 +16,10 @@
  * and is licensed under the MIT license.
  */
 
-namespace Zend\Hydrator\NamingStrategy;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+namespace Hydrator\NamingStrategy;
+
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
 
 /**
  * This strategy assumes that incoming data is underscore_separated, and transforms the names

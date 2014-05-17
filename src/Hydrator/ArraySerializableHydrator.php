@@ -7,9 +7,10 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+namespace Hydrator;
+
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
 
 /**
  * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively

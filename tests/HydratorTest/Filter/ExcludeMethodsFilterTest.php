@@ -16,9 +16,9 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Filter;
+namespace HydratorTest\Filter;
 
-use Zend\Hydrator\Filter\ExcludeMethodsFilter;
+use Hydrator\Filter\ExcludeMethodsFilter;
 
 class ExcludeMethodsFilterTest extends \PHPUnit_Framework_TestCase
 {

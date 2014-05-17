@@ -16,21 +16,24 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator;
+namespace HydratorTest;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
+use Hydrator\AbstractHydrator;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
+use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+use Hydrator\Strategy\StrategyInterface;
 
 class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanSetAndRemoveStrategies()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
 
         $this->assertFalse($hydrator->hasStrategy('foo'));
 
-        $hydrator->setStrategy('foo', $this->getMock('Zend\Hydrator\Strategy\StrategyInterface'));
+        $hydrator->setStrategy('foo', $this->getMock(StrategyInterface::class));
         $this->assertTrue($hydrator->hasStrategy('foo'));
 
         $hydrator->removeStrategy('foo');
@@ -39,10 +42,10 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanClearStrategies()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
 
-        $hydrator->setStrategy('foo', $this->getMock('Zend\Hydrator\Strategy\StrategyInterface'));
+        $hydrator->setStrategy('foo', $this->getMock(StrategyInterface::class));
         $hydrator->clearStrategies();
 
         $this->assertEmpty($hydrator->getStrategies());
@@ -50,16 +53,16 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanGetWildcardStrategy()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
 
-        $wildcardStrategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $wildcardStrategy = $this->getMock(StrategyInterface::class);
         $hydrator->setStrategy('*', $wildcardStrategy);
 
         $this->assertTrue($hydrator->hasStrategy('foo'));
         $this->assertSame($wildcardStrategy, $hydrator->getStrategy('foo'));
 
-        $specificStrategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $specificStrategy = $this->getMock(StrategyInterface::class);
         $hydrator->setStrategy('foo', $specificStrategy);
 
         $this->assertNotSame($wildcardStrategy, $hydrator->getStrategy('foo'));
@@ -68,21 +71,17 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testHasUnderscoreNamingStrategyByDefault()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
-
-        $this->assertInstanceOf(
-            'Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy',
-            $hydrator->getNamingStrategy()
-        );
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
+        $this->assertInstanceOf(UnderscoreNamingStrategy::class, $hydrator->getNamingStrategy());
     }
 
     public function testCanExtractUsingStrategy()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
 
-        $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->getMock(StrategyInterface::class);
         $hydrator->setStrategy('foo', $strategy);
 
         $object  = new \stdClass;
@@ -94,10 +93,10 @@ class AbstractHydratorTest extends \PHPUnit_Framework_TestCase
 
     public function testCanHydrateUsingStrategy()
     {
-        /* @var \Zend\Hydrator\AbstractHydrator $hydrator */
-        $hydrator = $this->getMockForAbstractClass('Zend\Hydrator\AbstractHydrator');
+        /* @var AbstractHydrator $hydrator */
+        $hydrator = $this->getMockForAbstractClass(AbstractHydrator::class);
 
-        $strategy = $this->getMock('Zend\Hydrator\Strategy\StrategyInterface');
+        $strategy = $this->getMock(StrategyInterface::class);
         $hydrator->setStrategy('foo', $strategy);
 
         $data    = ['myValue' => 'bar'];

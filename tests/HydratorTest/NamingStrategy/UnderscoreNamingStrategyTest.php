@@ -16,9 +16,9 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\NamingStrategy;
+namespace HydratorTest\NamingStrategy;
 
-use Zend\Hydrator\NamingStrategy\UnderscoreNamingStrategy;
+use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 
 class UnderscoreNamingStrategyTest extends \PHPUnit_Framework_TestCase
 {

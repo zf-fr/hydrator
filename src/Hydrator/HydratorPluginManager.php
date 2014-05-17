@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator;
+namespace Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception;

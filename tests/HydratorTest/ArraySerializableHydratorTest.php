@@ -16,10 +16,10 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator;
+namespace HydratorTest;
 
-use Zend\Hydrator\ArraySerializableHydrator;
-use ZendTest\Hydrator\Asset\ArraySerializable;
+use Hydrator\ArraySerializableHydrator;
+use HydratorTest\Asset\ArraySerializable;
 
 class ArraySerializableHydratorTest extends \PHPUnit_Framework_TestCase
 {

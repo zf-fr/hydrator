@@ -16,9 +16,9 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Filter;
+namespace HydratorTest\Filter;
 
-use Zend\Hydrator\Filter\HasFilter;
+use Hydrator\Filter\HasFilter;
 
 class HasFilterTest extends \PHPUnit_Framework_TestCase
 {

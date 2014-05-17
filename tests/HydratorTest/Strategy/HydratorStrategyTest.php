@@ -16,11 +16,12 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Strategy;
+namespace HydratorTest\Strategy;
 
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Context\HydrationContext;
-use Zend\Hydrator\Strategy\HydratorStrategy;
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Context\HydrationContext;
+use Hydrator\HydratorInterface;
+use Hydrator\Strategy\HydratorStrategy;
 
 class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +33,7 @@ class HydratorStrategyTest extends \PHPUnit_Framework_TestCase
         $extractionContext = new ExtractionContext($value);
         $hydrationContext  = new HydrationContext($data, $value);
 
-        $hydrator = $this->getMock('Zend\Hydrator\HydratorInterface');
+        $hydrator = $this->getMock(HydratorInterface::class);
         $hydrator->expects($this->once())->method('extract')->with($value, $extractionContext);
         $hydrator->expects($this->once())->method('hydrate')->with($data, $hydrationContext);
 

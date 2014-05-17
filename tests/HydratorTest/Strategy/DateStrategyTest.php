@@ -16,10 +16,10 @@
  * and is licensed under the MIT license.
  */
 
-namespace ZendTest\Hydrator\Strategy;
+namespace HydratorTest\Strategy;
 
 use DateTime;
-use Zend\Hydrator\Strategy\DateStrategy;
+use Hydrator\Strategy\DateStrategy;
 
 class DateStrategyTest extends \PHPUnit_Framework_TestCase
 {

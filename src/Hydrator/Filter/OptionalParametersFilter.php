@@ -7,12 +7,12 @@
  * @license        http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Filter;
+namespace Hydrator\Filter;
 
+use Hydrator\Context\ExtractionContext;
+use Hydrator\Exception\InvalidArgumentException;
 use ReflectionException;
 use ReflectionMethod;
-use Zend\Hydrator\Context\ExtractionContext;
-use Zend\Hydrator\Exception\InvalidArgumentException;
 
 /**
  * This filter accepts any method that have only optional parameters

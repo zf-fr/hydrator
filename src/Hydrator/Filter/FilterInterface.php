@@ -7,8 +7,9 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Zend\Hydrator\Filter;
-use Zend\Hydrator\Context\ExtractionContext;
+namespace Hydrator\Filter;
+
+use Hydrator\Context\ExtractionContext;
 
 /**
  * An filter is a special class that is run before any property/method is extracted, so that

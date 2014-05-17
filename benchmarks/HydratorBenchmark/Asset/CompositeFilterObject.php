@@ -16,57 +16,20 @@
  * and is licensed under the MIT license.
  */
 
-namespace HydratorTest\Asset;
+namespace HydratorBenchmark\Asset;
 
-class ClassMethods
+
+class CompositeFilterObject
 {
-    protected $firstName;
-    protected $lastName;
-    protected $isDead;
-    protected $hasDog;
-
-    public function setFirstName($firstName)
+    public function getOne()
     {
-        $this->firstName = (string) $firstName;
     }
 
-    public function getFirstName()
+    public function getTwo($requiredParam)
     {
-        return $this->firstName;
     }
 
-    public function setLastName($lastName)
+    public function isThree()
     {
-        $this->lastName = (string) $lastName;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
-    public function setIsDead($isDead)
-    {
-        $this->isDead = (bool) $isDead;
-    }
-
-    public function isDead()
-    {
-        return $this->isDead;
-    }
-
-    public function setHasDog($hasDog)
-    {
-        $this->hasDog = (bool) $hasDog;
-    }
-
-    public function hasDog()
-    {
-        return $this->hasDog;
-    }
-
-    public function getMethodWithRequiredParameter($requiredParameter)
-    {
-        return 'foo';
     }
 }
