@@ -40,12 +40,24 @@ abstract class AbstractHydrator implements HydratorInterface
     protected $namingStrategy;
 
     /**
+     * @var ExtractionContext
+     */
+    protected $extractionContext;
+
+    /**
+     * @var HydrationContext
+     */
+    protected $hydrationContext;
+
+    /**
      * Constructor
      */
     public function __construct(array $strategies = [])
     {
-        $this->compositeFilter = new CompositeFilter();
-        $this->namingStrategy  = new UnderscoreNamingStrategy();
+        $this->compositeFilter   = new CompositeFilter();
+        $this->namingStrategy    = new UnderscoreNamingStrategy();
+        $this->extractionContext = new ExtractionContext();
+        $this->hydrationContext  = new HydrationContext();
 
         foreach ($strategies as $name => $strategy) {
             $this->setStrategy($name, $strategy);

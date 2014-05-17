@@ -55,7 +55,8 @@ class CompositeFilterBenchmark extends AthleticEvent
      */
     public function traverseCompositeFilter()
     {
-        $context = new ExtractionContext($this->object);
+        $context         = new ExtractionContext();
+        $context->object = $this->object;
 
         $this->filter->accept('getOne', $context);
         $this->filter->accept('getTwo', $context);

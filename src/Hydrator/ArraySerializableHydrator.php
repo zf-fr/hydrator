@@ -9,9 +9,6 @@
 
 namespace Hydrator;
 
-use Hydrator\Context\ExtractionContext;
-use Hydrator\Context\HydrationContext;
-
 /**
  * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively
  */
@@ -32,7 +29,8 @@ class ArraySerializableHydrator extends AbstractHydrator
         $data   = $object->getArrayCopy();
         $result = [];
 
-        $context = new ExtractionContext($object);
+        $context         = clone $this->extractionContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
 
         foreach ($data as $property => $value) {
             if (!$this->compositeFilter->accept($property, $context)) {
@@ -52,7 +50,10 @@ class ArraySerializableHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
-        $context     = new HydrationContext($data, $object);
+        $context         = clone $this->hydrationContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
+        $context->data   = $data;
+
         $replacement = [];
 
         foreach ($data as $property => &$value) {

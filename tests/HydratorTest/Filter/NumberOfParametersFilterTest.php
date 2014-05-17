@@ -27,8 +27,10 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $object  = new NumberOfParametersObject();
-        $context = new ExtractionContext($object);
+        $object = new NumberOfParametersObject();
+
+        $context         = new ExtractionContext();
+        $context->object = $object;
 
         // Test for 0 parameters
         $filter = new NumberOfParametersFilter();
@@ -49,9 +51,12 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class, 'Method "unknownMethod" does not exist');
 
-        $object  = new NumberOfParametersObject();
-        $context = new ExtractionContext($object);
-        $filter  = new NumberOfParametersFilter();
+        $object = new NumberOfParametersObject();
+
+        $context         = new ExtractionContext($object);
+        $context->object = $object;
+
+        $filter = new NumberOfParametersFilter();
 
         $filter->accept('unknownMethod', $context);
     }

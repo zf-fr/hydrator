@@ -27,9 +27,12 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $object  = new NumberOfParametersObject();
-        $context = new ExtractionContext($object);
-        $filter  = new OptionalParametersFilter();
+        $object = new NumberOfParametersObject();
+
+        $context         = new ExtractionContext($object);
+        $context->object = $object;
+
+        $filter = new OptionalParametersFilter();
 
         // Test for method that does not have any required parameters
         $this->assertTrue($filter->accept('methodWithNoParameters', $context));
@@ -42,9 +45,12 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException(InvalidArgumentException::class, 'Method "unknownMethod" does not exist');
 
-        $object  = new NumberOfParametersObject();
-        $context = new ExtractionContext($object);
-        $filter  = new OptionalParametersFilter();
+        $object = new NumberOfParametersObject();
+
+        $context         = new ExtractionContext($object);
+        $context->object = $object;
+
+        $filter = new OptionalParametersFilter();
 
         $filter->accept('unknownMethod', $context);
     }

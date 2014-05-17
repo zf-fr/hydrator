@@ -9,8 +9,6 @@
 
 namespace Hydrator;
 
-use Hydrator\Context\ExtractionContext;
-use Hydrator\Context\HydrationContext;
 use Hydrator\Filter\CompositeFilter;
 use Hydrator\Filter\GetFilter;
 use Hydrator\Filter\HasFilter;
@@ -80,8 +78,10 @@ class ClassMethodsHydrator extends AbstractHydrator
             $methods = $this->objectMethodsCache[$objectClass] = get_class_methods($object);
         }
 
-        $result  = [];
-        $context = new ExtractionContext($object);
+        $result = [];
+
+        $context         = clone $this->extractionContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
 
         // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)
         if (!isset($this->extractionMethodsCache[$objectClass])) {
@@ -113,7 +113,10 @@ class ClassMethodsHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         $objectClass = get_class($object);
-        $context     = new HydrationContext($data, $object);
+
+        $context         = clone $this->hydrationContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
+        $context->data   = $data;
 
         foreach ($data as $property => $value) {
             $propertyFqn = $objectClass . '::$' . $property;

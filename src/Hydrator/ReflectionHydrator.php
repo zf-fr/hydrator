@@ -10,8 +10,6 @@
 namespace Hydrator;
 
 use ReflectionClass;
-use Hydrator\Context\ExtractionContext;
-use Hydrator\Context\HydrationContext;
 
 /**
  * This hydrator uses Reflection API to extract/hydrate
@@ -30,8 +28,10 @@ class ReflectionHydrator extends AbstractHydrator
      */
     public function extract($object)
     {
-        $result  = [];
-        $context = new ExtractionContext($object);
+        $result = [];
+
+        $context         = clone $this->extractionContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
 
         /* @var \ReflectionProperty $property */
         foreach (self::getReflProperties($object) as $property) {
@@ -54,7 +54,10 @@ class ReflectionHydrator extends AbstractHydrator
     public function hydrate(array $data, $object)
     {
         $reflProperties = self::getReflProperties($object);
-        $context        = new HydrationContext($data, $object);
+
+        $context         = clone $this->hydrationContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
+        $context->data   = $data;
 
         foreach ($data as $property => $value) {
             $property = $this->namingStrategy->getNameForHydration($property, $context);

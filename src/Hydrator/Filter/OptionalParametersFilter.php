@@ -41,7 +41,7 @@ final class OptionalParametersFilter implements FilterInterface
         $property = substr($property, $pos);
 
         try {
-            $reflectionMethod = new ReflectionMethod($context->getObject(), $property);
+            $reflectionMethod = new ReflectionMethod($context->object, $property);
         } catch (ReflectionException $exception) {
             throw new InvalidArgumentException(sprintf('Method "%s" does not exist', $property), 0, $exception);
         }

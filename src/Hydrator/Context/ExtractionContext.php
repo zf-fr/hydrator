@@ -21,6 +21,8 @@ namespace Hydrator\Context;
 /**
  * Extraction context
  *
+ * Please note that properties are public for performance reasons
+ *
  * @author  Michaël Gallego <mic.gallego@gmail.com>
  * @licence MIT
  */
@@ -29,21 +31,5 @@ class ExtractionContext
     /**
      * @var object
      */
-    protected $object;
-
-    /**
-     * @param $object
-     */
-    public function __construct($object)
-    {
-        $this->object = $object;
-    }
-
-    /**
-     * @return object
-     */
-    public function getObject()
-    {
-        return $this->object;
-    }
+    public $object;
 }

@@ -9,9 +9,6 @@
 
 namespace Hydrator;
 
-use Hydrator\Context\ExtractionContext;
-use Hydrator\Context\HydrationContext;
-
 /**
  * This very simple hydrator uses the public variables of an object.
  */
@@ -25,7 +22,8 @@ class ObjectPropertyHydrator extends AbstractHydrator
         $data   = get_object_vars($object);
         $result = [];
 
-        $context = new ExtractionContext($object);
+        $context         = clone $this->extractionContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
 
         foreach ($data as $property => $value) {
             if (!$this->compositeFilter->accept($property, $context)) {
@@ -45,7 +43,9 @@ class ObjectPropertyHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
-        $context = new HydrationContext($data, $object);
+        $context         = clone $this->hydrationContext; // Performance trick, do not try to instantiate
+        $context->object = $object;
+        $context->data   = $data;
 
         foreach ($data as $property => $value) {
             $property          = $this->namingStrategy->getNameForHydration($property, $context);

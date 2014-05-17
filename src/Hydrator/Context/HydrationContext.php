@@ -21,6 +21,8 @@ namespace Hydrator\Context;
 /**
  * Hydration context
  *
+ * Please note that properties are public for performance reasons
+ *
  * @author  Michaël Gallego <mic.gallego@gmail.com>
  * @licence MIT
  */
@@ -29,36 +31,10 @@ class HydrationContext
     /**
      * @var object
      */
-    protected $object;
+    public $object;
 
     /**
      * @var array
      */
-    protected $data = [];
-
-    /**
-     * @param array  $data
-     * @param object $object
-     */
-    public function __construct(array $data, $object)
-    {
-        $this->data   = $data;
-        $this->object = $object;
-    }
-
-    /**
-     * @return object
-     */
-    public function getObject()
-    {
-        return $this->object;
-    }
-
-    /**
-     * @return array
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
+    public $data;
 }
