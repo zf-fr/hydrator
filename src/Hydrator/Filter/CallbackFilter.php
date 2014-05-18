@@ -36,6 +36,6 @@ final class CallbackFilter implements FilterInterface
     {
         $callback = $this->callback;
 
-        return $callback($property);
+        return $callback($property, $context);
     }
 }

@@ -54,7 +54,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function __construct()
     {
-        $this->compositeFilter   = new CompositeFilter();
+        $this->compositeFilter   = new CompositeFilter(CompositeFilter::TYPE_AND);
         $this->namingStrategy    = new UnderscoreNamingStrategy();
         $this->extractionContext = new ExtractionContext();
         $this->hydrationContext  = new HydrationContext();

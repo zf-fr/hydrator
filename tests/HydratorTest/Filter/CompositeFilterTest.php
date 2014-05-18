@@ -52,7 +52,7 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($compositeFilter->accept('foo', $context));
     }
-    
+
 /*
     public function testAndCondition()
     {
