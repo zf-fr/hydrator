@@ -16,15 +16,10 @@ use Hydrator\Context\ExtractionContext;
  */
 class CompositeFilter implements FilterInterface
 {
-    /**
-     * Constant to add with "or" / "and" conditition
-     */
-    const CONDITION_OR  = 1;
-    const CONDITION_AND = 2;
+    const TYPE_AND = 0;
+    const TYPE_OR  = 1;
 
     /**
-     * The type of this composite filter
-     *
      * @var int
      */
     protected $type;
@@ -35,67 +30,31 @@ class CompositeFilter implements FilterInterface
     protected $filters;
 
     /**
-     * Constructor
-     *
-     * @param array $filters
-     * @param int   $type
+     * @param  int               $type
+     * @param  FilterInterface[] $filters
      */
-    public function __construct(array $filters = [], $type = self::CONDITION_OR)
+    public function __construct($type, array $filters = [])
     {
-        $this->filters = $filters;
         $this->type    = $type;
+        $this->filters = $filters;
     }
 
     /**
-     * Add a new filter to the composite filter
-     *
      * @param  FilterInterface $filter
      * @return void
      */
-    public function addFilter(FilterInterface $filter)
+    public function andFilter(FilterInterface $filter)
     {
-        $this->filters[] = $filter;
+        $this->filters = new CompositeFilter(self::TYPE_AND, [$this, $filter]);
     }
 
     /**
-     * Get filters
-     *
-     * @return array|FilterInterface[]
-     */
-    public function getFilters()
-    {
-        return $this->filters;
-    }
-
-    /**
-     * Remove a filter from the composite filter
-     *
-     * Note that this method needs to iterate through each filters,
-     * which can be expensive if there are a lot
-     *
      * @param  FilterInterface $filter
-     * @return bool Returns true if the filter has been removed, false otherwise
-     */
-    public function removeFilter(FilterInterface $filter)
-    {
-        foreach ($this->filters as $key => $currentFilter) {
-            if ($filter === $currentFilter) {
-                unset($this->filters[$key]);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Clear all the filters
-     *
      * @return void
      */
-    public function clearFilters()
+    public function orFilter(FilterInterface $filter)
     {
-        $this->filters = [];
+        $this->filters = new CompositeFilter(self::TYPE_OR, [$this, $filter]);
     }
 
     /**
@@ -109,7 +68,7 @@ class CompositeFilter implements FilterInterface
         }
 
         // If condition is OR, only one filter needs to evaluate to true
-        if ($this->type === self::CONDITION_OR) {
+        if ($this->type === self::TYPE_OR) {
             foreach ($this->filters as $filter) {
                 if ($filter->accept($property, $context) === true) {
                     return true;
