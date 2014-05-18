@@ -18,48 +18,33 @@
 
 namespace Hydrator\Strategy;
 
-use DateTime;
 use Hydrator\Context\ExtractionContext;
 use Hydrator\Context\HydrationContext;
 
 /**
- * Built-in strategy that can outputs Date to a given format. By default, it outputs dates to
- * RFC3339, as this is a widely understood format by all browsers
+ * @author  Michaël Gallego <mic.gallego@gmail.com>
+ * @licence MIT
  */
-final class DateStrategy implements StrategyInterface
+class ClosureStrategy implements StrategyInterface
 {
     /**
-     * @var string
+     * @var callable
      */
-    private $format;
+    protected $extractionClosure;
 
     /**
-     * @param string $format
+     * @var callable
      */
-    public function __construct($format = DateTime::RFC3339)
-    {
-        $this->format = (string) $format;
-    }
+    protected $hydrationClosure;
 
     /**
-     * Set extraction format
-     *
-     * @param  string $format
-     * @return void
+     * @param callable|null $extractionClosure
+     * @param callable|null $hydrationClosure
      */
-    public function setFormat($format)
+    public function __construct(callable $extractionClosure = null, callable $hydrationClosure = null)
     {
-        $this->format = (string) $format;
-    }
-
-    /**
-     * Get extraction format
-     *
-     * @return string
-     */
-    public function getFormat()
-    {
-        return $this->format;
+        $this->extractionClosure = $extractionClosure;
+        $this->hydrationClosure  = $hydrationClosure;
     }
 
     /**
@@ -67,17 +52,13 @@ final class DateStrategy implements StrategyInterface
      */
     public function extract($value, ExtractionContext $context = null)
     {
-        if (is_int($value)) {
-            $timestamp = $value;
-            $value     = new DateTime();
-            $value->setTimestamp($timestamp);
-        }
-
-        if (!$value instanceof DateTime) {
+        if (!$this->extractionClosure) {
             return $value;
         }
 
-        return $value->format($this->format);
+        $func = $this->extractionClosure;
+
+        return $func($value, $context);
     }
 
     /**
@@ -85,6 +66,12 @@ final class DateStrategy implements StrategyInterface
      */
     public function hydrate($value, HydrationContext $context = null)
     {
-        return new DateTime($value);
+        if (!$this->hydrationClosure) {
+            return $value;
+        }
+
+        $func = $this->hydrationClosure;
+
+        return $func($value, $context);
     }
 }
