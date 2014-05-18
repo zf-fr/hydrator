@@ -67,6 +67,12 @@ final class DateStrategy implements StrategyInterface
      */
     public function extract($value, ExtractionContext $context = null)
     {
+        if (is_int($value)) {
+            $timestamp = $value;
+            $value     = new DateTime();
+            $value->setTimestamp($timestamp);
+        }
+
         if (!$value instanceof DateTime) {
             return $value;
         }

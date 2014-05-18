@@ -37,6 +37,16 @@ class DateStrategyTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(DateTime::RFC3339, $strategy->getFormat());
     }
 
+    public function testCanExtractTimestamp()
+    {
+        $dateTime  = new DateTime();
+        $timestamp = $dateTime->getTimestamp();
+
+        $strategy = new DateStrategy();
+
+        $this->assertEquals($dateTime->format(DateTime::RFC3339), $strategy->extract($timestamp));
+    }
+
     public function testExtractDateUsingDefaultFormat()
     {
         $dateTime = new DateTime('2014-05-06T00:00:00+02:00');
