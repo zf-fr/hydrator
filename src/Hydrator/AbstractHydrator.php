@@ -157,12 +157,12 @@ abstract class AbstractHydrator implements HydratorInterface
     /**
      * Extract the value using a strategy, if one is set
      *
-     * @param  string            $property The name of the property
-     * @param  mixed             $value    The value to extract
-     * @param  ExtractionContext $context  The context
+     * @param  string                 $property The name of the property
+     * @param  mixed                  $value    The value to extract
+     * @param  ExtractionContext|null $context  The context
      * @return mixed
      */
-    public function extractValue($property, $value, ExtractionContext $context)
+    public function extractValue($property, $value, ExtractionContext $context = null)
     {
         if ($this->hasStrategy($property)) {
             return $this->getStrategy($property)->extract($value, $context);
@@ -174,12 +174,12 @@ abstract class AbstractHydrator implements HydratorInterface
     /**
      * Hydrate the value using a strategy, if one is st
      *
-     * @param  string           $property The name of the property
-     * @param  mixed            $value    The value to hydrate
-     * @param  HydrationContext $context  The context
+     * @param  string                $property The name of the property
+     * @param  mixed                 $value    The value to hydrate
+     * @param  HydrationContext|null $context  The context
      * @return mixed
      */
-    public function hydrateValue($property, $value, HydrationContext $context)
+    public function hydrateValue($property, $value, HydrationContext $context = null)
     {
         if ($this->hasStrategy($property)) {
             return $this->getStrategy($property)->hydrate($value, $context);
