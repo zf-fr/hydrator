@@ -19,19 +19,20 @@ This library can be used in any projects. If you are a Zend Framework 2 user, yo
 projects, by providing the following configuration:
 
 ```php
+use Hydrator\HydratorPluginManager;
 use Hydrator\Factory\HydratorPluginManagerFactory;
 
 return [
     'service_manager' => [
         'factories' => [
-            'HydratorManager' => HydratorPluginManagerFactory::class
+            HydratorPluginManager::class => HydratorPluginManagerFactory::class
         ]
     ]
 ];
 ```
 
-Alternatively, you can register it under another key name, so you can still use old hydrators in a part of your
-project, and new hydrators in another part.
+You can set hydrators in a similary way that ZF2 hydrators, but by using the "zfr_hydrators" key instead of
+"hydrators".
 
 ### Limitations
 

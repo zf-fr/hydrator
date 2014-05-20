@@ -14,8 +14,6 @@ use Zend\ServiceManager\Exception;
 use Zend\Stdlib\Hydrator\HydratorInterface as Zf2HydratorInterface;
 
 /**
- * @TODO: remove ZF2 compatibility
- *
  * @author  Michaël Gallego <mic.gallego@gmail.com>
  * @licence MIT
  *
@@ -31,20 +29,6 @@ class HydratorPluginManager extends AbstractPluginManager
         ClassMethodsHydrator::class      => ClassMethodsHydrator::class,
         ObjectPropertyHydrator::class    => ObjectPropertyHydrator::class,
         ReflectionHydrator::class        => ReflectionHydrator::class
-    );
-
-    /**
-     * @var string[]
-     */
-    protected $aliases = array(
-        'ArraySerializableHydrator' => ArraySerializableHydrator::class,
-        'ArraySerializable'         => ArraySerializableHydrator::class, // ZF2 compat
-        'ClassMethodsHydrator'      => ClassMethodsHydrator::class,
-        'ClassMethods'              => ClassMethodsHydrator::class, // ZF2 compat
-        'ObjectPropertyHydrator'    => ObjectPropertyHydrator::class,
-        'ObjectProperty'            => ObjectPropertyHydrator::class, // ZF2 compat
-        'ReflectionHydrator'        => ReflectionHydrator::class,
-        'Reflection'                => ReflectionHydrator::class // ZF2 compat
     );
 
     /**

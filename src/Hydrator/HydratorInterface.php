@@ -9,13 +9,9 @@
 
 namespace Hydrator;
 
-use Zend\Stdlib\Hydrator\HydratorInterface as Zf2HydratorInterface;
-
 /**
  * A hydrator is a simple object that does both extraction and hydration operations
- *
- * @TODO: remove ZF2 compatibility
  */
-interface HydratorInterface extends ExtractInterface, HydrateInterface, Zf2HydratorInterface
+interface HydratorInterface extends ExtractInterface, HydrateInterface
 {
 }
