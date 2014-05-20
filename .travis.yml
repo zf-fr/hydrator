@@ -12,8 +12,7 @@ before_script:
 
 script:
   - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml --group=Coverage
-  - ./vendor/bin/phpunit --group=Functional
-  - ./vendor/bin/phpcs --standard=PSR2 ./src/
+  - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests
 
 after_script:
   - php vendor/bin/coveralls -v
