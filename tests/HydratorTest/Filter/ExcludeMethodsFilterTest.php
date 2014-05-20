@@ -27,9 +27,7 @@ class ExcludeMethodsFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new ExcludeMethodsFilter(['getPassword']);
 
         $this->assertTrue($filter->accept('getName'));
-        $this->assertTrue($filter->accept('Object::getName'));
         $this->assertFalse($filter->accept('getPassword'));
-        $this->assertFalse($filter->accept('Object::getPassword'));
     }
 
     public function testFilterWithMultipleMethod()
@@ -37,10 +35,7 @@ class ExcludeMethodsFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new ExcludeMethodsFilter(['getPassword', 'getToken']);
 
         $this->assertTrue($filter->accept('getName'));
-        $this->assertTrue($filter->accept('Object::getName'));
         $this->assertFalse($filter->accept('getPassword'));
-        $this->assertFalse($filter->accept('Object::getPassword'));
         $this->assertFalse($filter->accept('getToken'));
-        $this->assertFalse($filter->accept('Object::getToken'));
     }
 }

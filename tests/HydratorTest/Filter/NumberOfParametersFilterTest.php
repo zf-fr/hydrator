@@ -35,16 +35,12 @@ class NumberOfParametersFilterTest extends \PHPUnit_Framework_TestCase
         // Test for 0 parameters
         $filter = new NumberOfParametersFilter();
         $this->assertTrue($filter->accept('methodWithNoParameters', $context));
-        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $context));
         $this->assertFalse($filter->accept('methodWithOneParameter', $context));
-        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $context));
 
         // Test for 1 parameter
         $filter = new NumberOfParametersFilter(1);
         $this->assertFalse($filter->accept('methodWithNoParameters', $context));
-        $this->assertFalse($filter->accept('Object::methodWithNoParameters', $context));
         $this->assertTrue($filter->accept('methodWithOneParameter', $context));
-        $this->assertTrue($filter->accept('Object::methodWithOneParameter', $context));
     }
 
     public function testThrowExceptionForUnknownMethod()

@@ -27,8 +27,6 @@ class IsFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new IsFilter();
 
         $this->assertTrue($filter->accept('isOpen'));
-        $this->assertTrue($filter->accept('Object::isOpen'));
         $this->assertFalse($filter->accept('getPassword'));
-        $this->assertFalse($filter->accept('Object::getPassword'));
     }
 }

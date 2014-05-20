@@ -36,9 +36,7 @@ class OptionalParametersFilterTest extends \PHPUnit_Framework_TestCase
 
         // Test for method that does not have any required parameters
         $this->assertTrue($filter->accept('methodWithNoParameters', $context));
-        $this->assertTrue($filter->accept('Object::methodWithNoParameters', $context));
         $this->assertFalse($filter->accept('methodWithOneParameter', $context));
-        $this->assertFalse($filter->accept('Object::methodWithOneParameter', $context));
     }
 
     public function testThrowExceptionForUnknownMethod()

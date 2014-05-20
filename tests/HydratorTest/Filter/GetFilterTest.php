@@ -27,8 +27,6 @@ class GetFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new GetFilter();
 
         $this->assertTrue($filter->accept('getName'));
-        $this->assertTrue($filter->accept('Object::getName'));
         $this->assertFalse($filter->accept('setPassword'));
-        $this->assertFalse($filter->accept('Object::setPassword'));
     }
 }

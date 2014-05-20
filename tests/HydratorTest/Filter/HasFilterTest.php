@@ -27,8 +27,6 @@ class HasFilterTest extends \PHPUnit_Framework_TestCase
         $filter = new HasFilter();
 
         $this->assertTrue($filter->accept('hasStrategy'));
-        $this->assertTrue($filter->accept('Object::hasStrategy'));
         $this->assertFalse($filter->accept('getPassword'));
-        $this->assertFalse($filter->accept('Object::getPassword'));
     }
 }
