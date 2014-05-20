@@ -14,7 +14,7 @@ use Hydrator\Context\ExtractionContext;
 /**
  * A composite filter is built as a tree of filters
  */
-class CompositeFilter implements FilterInterface
+final class CompositeFilter implements FilterInterface
 {
     const TYPE_AND = 0;
     const TYPE_OR  = 1;
@@ -30,31 +30,13 @@ class CompositeFilter implements FilterInterface
     protected $filters;
 
     /**
-     * @param  int               $type
      * @param  FilterInterface[] $filters
+     * @param  int               $type
      */
-    public function __construct($type, array $filters = [])
+    public function __construct(array $filters = [], $type = self::TYPE_OR)
     {
-        $this->type    = $type;
         $this->filters = $filters;
-    }
-
-    /**
-     * @param  FilterInterface $filter
-     * @return void
-     */
-    public function andFilter(FilterInterface $filter)
-    {
-        $this->filters = new CompositeFilter(self::TYPE_AND, [$this, $filter]);
-    }
-
-    /**
-     * @param  FilterInterface $filter
-     * @return void
-     */
-    public function orFilter(FilterInterface $filter)
-    {
-        $this->filters = new CompositeFilter(self::TYPE_OR, [$this, $filter]);
+        $this->type    = $type;
     }
 
     /**

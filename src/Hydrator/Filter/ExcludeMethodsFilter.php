@@ -14,7 +14,7 @@ use Hydrator\Context\ExtractionContext;
 /**
  * This filter exclude any methods that have a name in the array
  */
-class ExcludeMethodsFilter implements FilterInterface
+final class ExcludeMethodsFilter implements FilterInterface
 {
     /**
      * The methods to exclude
@@ -37,9 +37,6 @@ class ExcludeMethodsFilter implements FilterInterface
      */
     public function accept($property, ExtractionContext $context = null)
     {
-        $pos = strpos($property, '::');
-        $pos = $pos !== false ? $pos + 2 : 0;
-
-        return !isset($this->methods[substr($property, $pos)]);
+        return !isset($this->methods[$property]);
     }
 }

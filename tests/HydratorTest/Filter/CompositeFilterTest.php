@@ -26,19 +26,19 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testAlwaysAcceptIfNoFilters()
     {
-        $compositeFilter = new CompositeFilter(CompositeFilter::TYPE_OR);
+        $compositeFilter = new CompositeFilter([], CompositeFilter::TYPE_OR);
         $this->assertTrue($compositeFilter->accept('foo'));
 
-        $compositeFilter = new CompositeFilter(CompositeFilter::TYPE_AND);
+        $compositeFilter = new CompositeFilter([], CompositeFilter::TYPE_AND);
         $this->assertTrue($compositeFilter->accept('foo'));
     }
 
     public function testOrCondition()
     {
-        $filterOne       = $this->getMock(FilterInterface::class);
-        $filterTwo       = $this->getMock(FilterInterface::class);
+        $filterOne = $this->getMock(FilterInterface::class);
+        $filterTwo = $this->getMock(FilterInterface::class);
 
-        $compositeFilter = new CompositeFilter(CompositeFilter::TYPE_OR, [$filterOne, $filterTwo]);
+        $compositeFilter = new CompositeFilter([$filterOne, $filterTwo], CompositeFilter::TYPE_OR);
 
         $context = new ExtractionContext(new \stdClass());
 
@@ -53,12 +53,12 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($compositeFilter->accept('foo', $context));
     }
 
-/*
     public function testAndCondition()
     {
-        $compositeFilter = new CompositeFilter([], CompositeFilter::CONDITION_AND);
-        $filterOne       = $this->getMock(FilterInterface::class);
-        $filterTwo       = $this->getMock(FilterInterface::class);
+        $filterOne = $this->getMock(FilterInterface::class);
+        $filterTwo = $this->getMock(FilterInterface::class);
+
+        $compositeFilter = new CompositeFilter([$filterOne, $filterTwo], CompositeFilter::TYPE_AND);
 
         $context = new ExtractionContext(new \stdClass());
 
@@ -72,29 +72,31 @@ class CompositeFilterTest extends \PHPUnit_Framework_TestCase
                   ->with('foo', $context)
                   ->will($this->returnValue(false));
 
-        $compositeFilter->addFilter($filterOne);
-        $compositeFilter->addFilter($filterTwo);
-
         $this->assertFalse($compositeFilter->accept('foo', $context));
     }
 
     public function testNestedCompositeFilter()
     {
-        $rootCompositeFilter = new CompositeFilter([], CompositeFilter::CONDITION_AND);
-
-        $firstCompositeFilter = new CompositeFilter();
         $filterOne = $this->getMock(FilterInterface::class);
-        $filterOne->expects($this->once())->method('accept')->will($this->returnValue(true));
-        $firstCompositeFilter->addFilter($filterOne);
+        $filterOne->expects($this->atLeastOnce())->method('accept')->will($this->returnValue(true));
+        $firstCompositeFilter = new CompositeFilter([$filterOne]);
 
-        $secondCompositeFilter = new CompositeFilter();
         $filterTwo = $this->getMock(FilterInterface::class);
-        $filterTwo->expects($this->once())->method('accept')->will($this->returnValue(false));
-        $secondCompositeFilter->addFilter($filterTwo);
+        $filterTwo->expects($this->atLeastOnce())->method('accept')->will($this->returnValue(false));
+        $secondCompositeFilter = new CompositeFilter([$filterTwo]);
 
-        $rootCompositeFilter->addFilter($firstCompositeFilter);
-        $rootCompositeFilter->addFilter($secondCompositeFilter);
+        $rootCompositeFilter = new CompositeFilter(
+            [$firstCompositeFilter, $secondCompositeFilter],
+            CompositeFilter::TYPE_AND
+        );
 
         $this->assertFalse($rootCompositeFilter->accept('foo'));
-    }*/
+
+        $rootCompositeFilter = new CompositeFilter(
+            [$firstCompositeFilter, $secondCompositeFilter],
+            CompositeFilter::TYPE_OR
+        );
+
+        $this->assertTrue($rootCompositeFilter->accept('foo'));
+    }
 }

@@ -57,11 +57,12 @@ class ClassMethodsHydrator extends AbstractHydrator
     {
         parent::__construct();
 
-        $filter1 = new CompositeFilter(CompositeFilter::TYPE_OR, [new GetFilter(), new HasFilter(), new IsFilter()]);
-        $filter2 = new CompositeFilter(CompositeFilter::TYPE_OR, [new OptionalParametersFilter()]);
+        $this->filterChain->andFilter(new CompositeFilter(
+            [new GetFilter(), new IsFilter(), new HasFilter()],
+            CompositeFilter::TYPE_OR
+        ));
 
-        $this->compositeFilter->andFilter($filter1);
-        $this->compositeFilter->andFilter($filter2);
+        $this->filterChain->andFilter(new OptionalParametersFilter());
     }
 
     /**
@@ -87,7 +88,7 @@ class ClassMethodsHydrator extends AbstractHydrator
             $this->extractionMethodsCache[$objectClass] = [];
 
             foreach ($methods as $method) {
-                if (!$this->compositeFilter->accept($method, $context)) {
+                if (!$this->filterChain->accept($method, $context)) {
                     continue;
                 }
 

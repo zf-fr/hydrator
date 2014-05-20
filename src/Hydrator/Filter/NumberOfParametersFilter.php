@@ -39,10 +39,6 @@ final class NumberOfParametersFilter implements FilterInterface
      */
     public function accept($property, ExtractionContext $context = null)
     {
-        $pos      = strpos($property, '::');
-        $pos      = $pos !== false ? $pos + 2 : 0;
-        $property = substr($property, $pos);
-
         try {
             $reflectionMethod = new ReflectionMethod($context->object, $property);
         } catch (ReflectionException $exception) {

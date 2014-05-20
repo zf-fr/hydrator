@@ -27,6 +27,6 @@ class CustomClassMethodsHydrator extends ClassMethodsHydrator
     {
         parent::__construct();
 
-        $this->compositeFilter->addFilter(new ExcludeMethodsFilter(['getFirstName', 'getLastName']));
+        $this->filterChain->andFilter(new ExcludeMethodsFilter(['getFirstName', 'getLastName']));
     }
 }

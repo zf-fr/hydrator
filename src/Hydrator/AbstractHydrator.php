@@ -11,7 +11,7 @@ namespace Hydrator;
 
 use Hydrator\Context\ExtractionContext;
 use Hydrator\Context\HydrationContext;
-use Hydrator\Filter\CompositeFilter;
+use Hydrator\Filter\FilterChain;
 use Hydrator\NamingStrategy\NamingStrategyInterface;
 use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
 use Hydrator\Strategy\StrategyInterface;
@@ -23,9 +23,9 @@ use Hydrator\Strategy\StrategyInterface;
 abstract class AbstractHydrator implements HydratorInterface
 {
     /**
-     * @var CompositeFilter
+     * @var FilterChain
      */
-    protected $compositeFilter;
+    protected $filterChain;
 
     /**
      * List of strategies, indexed by a property name
@@ -54,7 +54,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function __construct()
     {
-        $this->compositeFilter   = new CompositeFilter(CompositeFilter::TYPE_AND);
+        $this->filterChain       = new FilterChain();
         $this->namingStrategy    = new UnderscoreNamingStrategy();
         $this->extractionContext = new ExtractionContext();
         $this->hydrationContext  = new HydrationContext();

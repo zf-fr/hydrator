@@ -21,6 +21,7 @@ namespace HydratorBenchmark\Filter;
 use Athletic\AthleticEvent;
 use Hydrator\Context\ExtractionContext;
 use Hydrator\Filter\CompositeFilter;
+use Hydrator\Filter\FilterChain;
 use Hydrator\Filter\HasFilter;
 use Hydrator\Filter\IsFilter;
 use Hydrator\Filter\GetFilter;
@@ -30,7 +31,7 @@ use HydratorBenchmark\Asset\CompositeFilterObject;
 class CompositeFilterBenchmark extends AthleticEvent
 {
     /**
-     * @var CompositeFilter
+     * @var FilterChain
      */
     protected $filter;
 
@@ -41,13 +42,15 @@ class CompositeFilterBenchmark extends AthleticEvent
 
     public function classSetUp()
     {
-        $this->filter = new CompositeFilter([], CompositeFilter::CONDITION_AND);
-        $this->object = new CompositeFilterObject();
+        $this->filter = new FilterChain();
 
-        $this->filter->addFilter(new CompositeFilter([
-            new GetFilter(), new HasFilter(), new IsFilter()
-        ]));
-        $this->filter->addFilter(new OptionalParametersFilter());
+        $this->filter->andFilter(new CompositeFilter(
+            [new GetFilter(), new HasFilter(), new IsFilter()],
+            CompositeFilter::TYPE_OR
+        ));
+        $this->filter->andFilter(new OptionalParametersFilter());
+
+        $this->object = new CompositeFilterObject();
     }
 
     /**

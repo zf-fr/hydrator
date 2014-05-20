@@ -21,9 +21,6 @@ final class HasFilter implements FilterInterface
      */
     public function accept($property, ExtractionContext $context = null)
     {
-        $pos = strpos($property, '::');
-        $pos = $pos !== false ? $pos + 2 : 0;
-
-        return substr($property, $pos, 3) === 'has';
+        return substr($property, 0, 3) === 'has';
     }
 }

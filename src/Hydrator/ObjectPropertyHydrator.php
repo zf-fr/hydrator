@@ -26,7 +26,7 @@ class ObjectPropertyHydrator extends AbstractHydrator
         $context->object = $object;
 
         foreach ($data as $property => $value) {
-            if (!$this->compositeFilter->accept($property, $context)) {
+            if (!$this->filterChain->accept($property, $context)) {
                 unset($data[$property]);
                 continue;
             }
