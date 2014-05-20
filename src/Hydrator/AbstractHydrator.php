@@ -26,11 +26,6 @@ abstract class AbstractHydrator implements HydratorInterface
     use ProvidesStrategyTrait;
 
     /**
-     * @var FilterChain
-     */
-    protected $filterChain;
-
-    /**
      * @var ExtractionContext
      */
     protected $extractionContext;
@@ -45,7 +40,6 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function __construct()
     {
-        $this->filterChain       = new FilterChain();
         $this->namingStrategy    = new UnderscoreNamingStrategy();
         $this->extractionContext = new ExtractionContext();
         $this->hydrationContext  = new HydrationContext();

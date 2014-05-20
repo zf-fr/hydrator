@@ -33,11 +33,6 @@ final class ArraySerializableHydrator extends AbstractHydrator
         $context->object = $object;
 
         foreach ($data as $property => $value) {
-            if (!$this->filterChain->accept($property, $context)) {
-                unset($data[$property]);
-                continue;
-            }
-
             $property          = $this->namingStrategy->getNameForExtraction($property, $context);
             $result[$property] = $this->extractValue($property, $value, $context);
         }

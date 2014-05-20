@@ -37,10 +37,6 @@ final class ReflectionHydrator extends AbstractHydrator
         foreach (self::getReflProperties($object) as $property) {
             $propertyName = $this->namingStrategy->getNameForExtraction($property->getName(), $context);
 
-            if (!$this->filterChain->accept($property, $context)) {
-                continue;
-            }
-
             $value                 = $property->getValue($object);
             $result[$propertyName] = $this->extractValue($propertyName, $value, $context);
         }
