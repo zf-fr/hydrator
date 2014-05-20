@@ -12,9 +12,9 @@ namespace Hydrator;
 use Hydrator\Context\ExtractionContext;
 use Hydrator\Context\HydrationContext;
 use Hydrator\Filter\FilterChain;
-use Hydrator\NamingStrategy\NamingStrategyInterface;
+use Hydrator\NamingStrategy\ProvidesNamingStrategyTrait;
 use Hydrator\NamingStrategy\UnderscoreNamingStrategy;
-use Hydrator\Strategy\StrategyInterface;
+use Hydrator\Strategy\ProvidesStrategyTrait;
 
 /**
  * This abstract hydrator provides a built-in support for filters and strategies. All
@@ -22,22 +22,13 @@ use Hydrator\Strategy\StrategyInterface;
  */
 abstract class AbstractHydrator implements HydratorInterface
 {
+    use ProvidesNamingStrategyTrait;
+    use ProvidesStrategyTrait;
+
     /**
      * @var FilterChain
      */
     protected $filterChain;
-
-    /**
-     * List of strategies, indexed by a property name
-     *
-     * @var array|StrategyInterface[]
-     */
-    protected $strategies = [];
-
-    /**
-     * @var NamingStrategyInterface
-     */
-    protected $namingStrategy;
 
     /**
      * @var ExtractionContext
@@ -61,96 +52,6 @@ abstract class AbstractHydrator implements HydratorInterface
     }
 
     /**
-     * Set a new strategy for a given property
-     *
-     * @param  string            $name
-     * @param  StrategyInterface $strategy
-     * @return void
-     */
-    public function setStrategy($name, StrategyInterface $strategy)
-    {
-        $this->strategies[$name] = $strategy;
-    }
-
-    /**
-     * Remove a strategy for a given property
-     *
-     * @param  string $name
-     * @return void
-     */
-    public function removeStrategy($name)
-    {
-        unset($this->strategies[$name]);
-    }
-
-    /**
-     * Get a strategy for a given property (null if none)
-     *
-     * @param  string $name
-     * @return StrategyInterface|null
-     */
-    public function getStrategy($name)
-    {
-        if (isset($this->strategies[$name])) {
-            return $this->strategies[$name];
-        }
-
-        return isset($this->strategies['*']) ? $this->strategies['*'] : null;
-    }
-
-    /**
-     * Has a given property a strategy attached to it?
-     *
-     * @param  string $name
-     * @return bool True if the given property has a strategy
-     */
-    public function hasStrategy($name)
-    {
-        return isset($this->strategies[$name]) || isset($this->strategies['*']);
-    }
-
-    /**
-     * Get all the strategies
-     *
-     * @return array|StrategyInterface[]
-     */
-    public function getStrategies()
-    {
-        return $this->strategies;
-    }
-
-    /**
-     * Clear all the strategies
-     *
-     * @return void
-     */
-    public function clearStrategies()
-    {
-        $this->strategies = [];
-    }
-
-    /**
-     * Set a naming strategy
-     *
-     * @param  NamingStrategyInterface $namingStrategy
-     * @return void
-     */
-    public function setNamingStrategy(NamingStrategyInterface $namingStrategy)
-    {
-        $this->namingStrategy = $namingStrategy;
-    }
-
-    /**
-     * Get naming strategy
-     *
-     * @return NamingStrategyInterface
-     */
-    public function getNamingStrategy()
-    {
-        return $this->namingStrategy;
-    }
-
-    /**
      * Extract the value using a strategy, if one is set
      *
      * @param  string                 $property The name of the property
@@ -160,8 +61,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function extractValue($property, $value, ExtractionContext $context = null)
     {
-        // Optimization: avoid a method call by inlining, please do not change
-        if (isset($this->strategies[$property]) || isset($this->strategies['*'])) {
+        if ($this->hasStrategy($property)) {
             return $this->getStrategy($property)->extract($value, $context);
         }
 
@@ -178,8 +78,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function hydrateValue($property, $value, HydrationContext $context = null)
     {
-        // Optimization: avoid a method call by inlining, please do not change
-        if (isset($this->strategies[$property]) || isset($this->strategies['*'])) {
+        if ($this->hasStrategy($property)) {
             return $this->getStrategy($property)->hydrate($value, $context);
         }
 

@@ -69,7 +69,7 @@ class ArraySerializableHydrator extends AbstractHydrator
 
         if (is_callable([$object, 'populate'])) {
             $object->populate($replacement);
-            
+
             return $object;
         }
 
