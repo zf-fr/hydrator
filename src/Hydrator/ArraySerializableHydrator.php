@@ -12,7 +12,7 @@ namespace Hydrator;
 /**
  * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively
  */
-class ArraySerializableHydrator extends AbstractHydrator
+final class ArraySerializableHydrator extends AbstractHydrator
 {
     /**
      * {@inheritDoc}

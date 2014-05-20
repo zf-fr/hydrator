@@ -12,7 +12,7 @@ namespace Hydrator;
 /**
  * This very simple hydrator uses the public variables of an object.
  */
-class ObjectPropertyHydrator extends AbstractHydrator
+final class ObjectPropertyHydrator extends AbstractHydrator
 {
     /**
      * {@inheritDoc}

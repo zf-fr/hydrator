@@ -20,7 +20,6 @@ namespace HydratorTest;
 
 use Hydrator\ClassMethodsHydrator;
 use HydratorTest\Asset\ClassMethods;
-use HydratorTest\Asset\Hydrator\CustomClassMethodsHydrator;
 
 class ClassMethodsHydratorTest extends \PHPUnit_Framework_TestCase
 {
@@ -63,26 +62,5 @@ class ClassMethodsHydratorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('Scholzen', $object->getLastName());
         $this->assertTrue($object->hasDog());
         $this->assertFalse($object->isDead());
-    }
-
-    public function testCanAddCustomFiltersForExtraction()
-    {
-        $object = new ClassMethods();
-        $object->setFirstName('Abdul Malik');
-        $object->setLastName('Ikhsan');
-        $object->setHasDog(false);
-        $object->setIsDead(false);
-
-        // This hydrator has excluded the "getFirstName" and "getLastName" methods
-        $hydrator = new CustomClassMethodsHydrator();
-
-        $expectedData = [
-            'has_dog' => false,
-            'is_dead' => false,
-        ];
-
-        $data = $hydrator->extract($object);
-
-        $this->assertEquals($expectedData, $data);
     }
 }

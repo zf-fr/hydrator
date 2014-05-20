@@ -14,7 +14,7 @@ use ReflectionClass;
 /**
  * This hydrator uses Reflection API to extract/hydrate
  */
-class ReflectionHydrator extends AbstractHydrator
+final class ReflectionHydrator extends AbstractHydrator
 {
     /**
      * An in-array cache, indexed by object name

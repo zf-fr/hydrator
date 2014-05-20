@@ -25,7 +25,7 @@ use Hydrator\Filter\OptionalParametersFilter;
  *
  * If you have very specific use cases, you are encouraged to create your own hydrator
  */
-class ClassMethodsHydrator extends AbstractHydrator
+final class ClassMethodsHydrator extends AbstractHydrator
 {
     /**
      * Holds the methods for a given object
@@ -51,18 +51,11 @@ class ClassMethodsHydrator extends AbstractHydrator
     private $extractionMethodsCache = [];
 
     /**
-     * @var bool
-     */
-    protected $useCache;
-
-    /**
      * Constructor
      */
-    public function __construct($useCache = true)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->useCache = (bool) $useCache;
 
         $this->filterChain->andFilter(new CompositeFilter(
             [new GetFilter(), new IsFilter(), new HasFilter()],
@@ -91,7 +84,7 @@ class ClassMethodsHydrator extends AbstractHydrator
         $context->object = $object;
 
         // Pass 1: finding out which properties can be extracted, with which methods (populate hydration cache)
-        if (!isset($this->extractionMethodsCache[$objectClass]) && $this->useCache) {
+        if (!isset($this->extractionMethodsCache[$objectClass])) {
             $this->extractionMethodsCache[$objectClass] = [];
 
             foreach ($methods as $method) {
@@ -128,7 +121,7 @@ class ClassMethodsHydrator extends AbstractHydrator
         foreach ($data as $property => $value) {
             $propertyFqn = $objectClass . '::$' . $property;
 
-            if (!isset($this->hydrationMethodsCache[$propertyFqn]) && $this->useCache) {
+            if (!isset($this->hydrationMethodsCache[$propertyFqn])) {
                 $property = $this->namingStrategy->getNameForHydration($property, $context);
                 $method   = 'set' . $property; // PHP is case insensitive for call methods, no
                                                // need to uppercase first character
