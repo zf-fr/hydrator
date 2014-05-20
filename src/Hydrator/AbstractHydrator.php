@@ -160,7 +160,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function extractValue($property, $value, ExtractionContext $context = null)
     {
-        // Optimization: avoid a method call, please do not change
+        // Optimization: avoid a method call by inlining, please do not change
         if (isset($this->strategies[$property]) || isset($this->strategies['*'])) {
             return $this->getStrategy($property)->extract($value, $context);
         }
@@ -178,7 +178,7 @@ abstract class AbstractHydrator implements HydratorInterface
      */
     public function hydrateValue($property, $value, HydrationContext $context = null)
     {
-        // Optimization: avoid a method call, please do not change
+        // Optimization: avoid a method call by inlining, please do not change
         if (isset($this->strategies[$property]) || isset($this->strategies['*'])) {
             return $this->getStrategy($property)->hydrate($value, $context);
         }

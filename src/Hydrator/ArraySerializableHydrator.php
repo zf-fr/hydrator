@@ -63,15 +63,19 @@ class ArraySerializableHydrator extends AbstractHydrator
 
         if (is_callable([$object, 'exchangeArray'])) {
             $object->exchangeArray($replacement);
-        } elseif (is_callable([$object, 'populate'])) {
-            $object->populate($replacement);
-        } else {
-            throw new Exception\BadMethodCallException(sprintf(
-                '%s expects the provided object to implement exchangeArray() or populate()',
-                __METHOD__
-            ));
+
+            return $object;
         }
 
-        return $object;
+        if (is_callable([$object, 'populate'])) {
+            $object->populate($replacement);
+            
+            return $object;
+        }
+
+        throw new Exception\BadMethodCallException(sprintf(
+            '%s expects the provided object to implement exchangeArray() or populate()',
+            __METHOD__
+        ));
     }
 }
