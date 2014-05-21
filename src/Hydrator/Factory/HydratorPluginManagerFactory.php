@@ -10,6 +10,7 @@
 namespace Hydrator\Factory;
 
 use Hydrator\HydratorPluginManager;
+use Zend\ServiceManager\Config;
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
@@ -32,8 +33,11 @@ class HydratorPluginManagerFactory implements FactoryInterface
     public function createService(ServiceLocatorInterface $serviceLocator)
     {
         $config = $serviceLocator->get('Config');
-        $config = isset($config['zfr_hydrators']) ? $config['zfr_hydrators'] : array();
+        $config = isset($config['zfr_hydrators']) ? $config['zfr_hydrators'] : [];
 
-        return new HydratorPluginManager($config);
+        $pluginManager = new HydratorPluginManager(new Config($config));
+        $pluginManager->setServiceLocator($serviceLocator);
+
+        return $pluginManager;
     }
 }
