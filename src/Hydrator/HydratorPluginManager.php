@@ -11,7 +11,6 @@ namespace Hydrator;
 
 use Zend\ServiceManager\AbstractPluginManager;
 use Zend\ServiceManager\Exception;
-use Zend\Stdlib\Hydrator\HydratorInterface as Zf2HydratorInterface;
 
 /**
  * @author  Michaël Gallego <mic.gallego@gmail.com>
@@ -36,12 +35,13 @@ class HydratorPluginManager extends AbstractPluginManager
      */
     public function validatePlugin($plugin)
     {
-        if ($plugin instanceof HydratorInterface || $plugin instanceof Zf2HydratorInterface) {
+        if ($plugin instanceof HydrateInterface || $plugin instanceof ExtractInterface) {
             return; // We're okay!
         }
 
         throw new Exception\RuntimeException(sprintf(
-            'Plugin of type %s is invalid; must implement Zend\Hydrator\HydratorInterface',
+            'Plugin of type %s is invalid; must implement Hydrator\HydratorInterface,
+             Hydrator\HydrateInterface or Hydrator\ExtractInterface',
             (is_object($plugin) ? get_class($plugin) : gettype($plugin))
         ));
     }

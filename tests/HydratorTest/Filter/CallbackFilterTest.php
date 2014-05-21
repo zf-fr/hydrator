@@ -24,7 +24,7 @@ class CallbackFilterTest extends \PHPUnit_Framework_TestCase
 {
     public function testFilter()
     {
-        $filter = new CallbackFilter(function($value) {
+        $filter = new CallbackFilter(function ($value) {
             return $value === 'a';
         });
 

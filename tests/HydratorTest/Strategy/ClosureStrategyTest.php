@@ -26,7 +26,7 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
 {
     public function testCanUseExtractionClosure()
     {
-        $strategy = new ClosureStrategy(function($value, ExtractionContext $context = null) {
+        $strategy = new ClosureStrategy(function ($value, ExtractionContext $context = null) {
             return $value * 2;
         }, null);
 
@@ -35,7 +35,7 @@ class ClosureStrategyTest extends \PHPUnit_Framework_TestCase
 
     public function testCanUseHydrationClosure()
     {
-        $strategy = new ClosureStrategy(null, function($value, HydrationContext $context = null) {
+        $strategy = new ClosureStrategy(null, function ($value, HydrationContext $context = null) {
             return $value * 2;
         });
 
