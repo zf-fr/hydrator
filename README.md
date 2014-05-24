@@ -1,5 +1,8 @@
 # Hydrator
 
+[![Build Status](https://travis-ci.org/zf-fr/hydrator.png?branch=master)](https://travis-ci.org/zf-fr/hydrator)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/zf-fr/hydrator/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/zf-fr/hydrator/?branch=master)
+
 This component is a prototype for Zend Framework 3 hydrator component, that you can use today for new projects (see
 below for more details). Compared to original implementation, it offers:
 
