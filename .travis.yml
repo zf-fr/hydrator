@@ -11,11 +11,8 @@ before_script:
   - composer update --prefer-source --dev
 
 script:
-  - ./vendor/bin/phpunit --coverage-clover ./build/logs/clover.xml --group=Coverage
+  - ./vendor/bin/phpunit --coverage-clover ./build/clover.xml
   - ./vendor/bin/phpcs --standard=PSR2 ./src/ ./tests
-
-after_script:
-  - php vendor/bin/coveralls -v
 
 notifications:
   irc: "irc.freenode.org#zftalk.modules"
