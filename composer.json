@@ -20,6 +20,8 @@
     "php": ">=5.5"
   },
   "require-dev": {
+    "zendframework/zend-stdlib": "~2.2",
+    "zendframework/zend-servicemanager": "~2.2.",
     "phpunit/phpunit": "~4.1",
     "squizlabs/php_codesniffer": "1.4.*",
     "athletic/athletic": "0.1.7"
