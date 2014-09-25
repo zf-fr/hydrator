@@ -10,7 +10,8 @@
 namespace Hydrator;
 
 /**
- * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively
+ * This hydrator uses the getArrayCopy() method to extract an object
+ * and exchangeArray() or populate() method to hydrate the object
  */
 final class ArraySerializableHydrator extends AbstractHydrator
 {
@@ -45,6 +46,13 @@ final class ArraySerializableHydrator extends AbstractHydrator
      */
     public function hydrate(array $data, $object)
     {
+        if (!(is_callable([$object, 'exchangeArray']) || is_callable([$object, 'populate']))) {
+            throw new Exception\BadMethodCallException(sprintf(
+                '%s expects the provided object to implement exchangeArray() or populate()',
+                __METHOD__
+            ));
+        }
+
         $context         = clone $this->hydrationContext; // Performance trick, do not try to instantiate
         $context->object = $object;
         $context->data   = $data;
@@ -58,19 +66,10 @@ final class ArraySerializableHydrator extends AbstractHydrator
 
         if (is_callable([$object, 'exchangeArray'])) {
             $object->exchangeArray($replacement);
-
-            return $object;
-        }
-
-        if (is_callable([$object, 'populate'])) {
+        } else {
             $object->populate($replacement);
-
-            return $object;
         }
 
-        throw new Exception\BadMethodCallException(sprintf(
-            '%s expects the provided object to implement exchangeArray() or populate()',
-            __METHOD__
-        ));
+        return $object;
     }
 }
