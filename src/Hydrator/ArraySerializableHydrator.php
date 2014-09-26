@@ -10,7 +10,8 @@
 namespace Hydrator;
 
 /**
- * This hydrator uses the getArrayCopy/exchangeArray to extract/hydrate an object, respectively
+ * This hydrator uses the getArrayCopy() method to extract an object
+ * and exchangeArray() or populate() (in this order) method to hydrate the object
  */
 final class ArraySerializableHydrator extends AbstractHydrator
 {
