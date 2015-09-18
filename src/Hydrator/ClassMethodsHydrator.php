@@ -11,6 +11,7 @@ namespace Hydrator;
 
 use Hydrator\Filter\CompositeFilter;
 use Hydrator\Filter\FilterChain;
+use Hydrator\Filter\FilterInterface;
 use Hydrator\Filter\GetFilter;
 use Hydrator\Filter\HasFilter;
 use Hydrator\Filter\IsFilter;
@@ -31,7 +32,7 @@ final class ClassMethodsHydrator extends AbstractHydrator
     /**
      * @var FilterChain
      */
-    protected $filterChain;
+    private $filterChain;
 
     /**
      * Holds the methods for a given object
@@ -58,8 +59,10 @@ final class ClassMethodsHydrator extends AbstractHydrator
 
     /**
      * Constructor
+     *
+     * @param FilterInterface|null $optionalFilter
      */
-    public function __construct()
+    public function __construct(FilterInterface $optionalFilter = null)
     {
         parent::__construct();
 
@@ -71,6 +74,10 @@ final class ClassMethodsHydrator extends AbstractHydrator
         ));
 
         $this->filterChain->andFilter(new OptionalParametersFilter());
+
+        if ($optionalFilter) {
+            $this->filterChain->andFilter($optionalFilter);
+        }
     }
 
     /**
