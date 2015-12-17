@@ -21,18 +21,20 @@ interface StrategyInterface
     /**
      * Converts the given value so that it can be extracted by the hydrator
      *
-     * @param  mixed                  $value   The original value
+     * @param  mixed                  $value    The original value
+     * @param  string                 $property The name of the property
      * @param  ExtractionContext|null $context
      * @return mixed
      */
-    public function extract($value, ExtractionContext $context = null);
+    public function extract($value, $property, ExtractionContext $context = null);
 
     /**
      * Converts the given value so that it can be hydrated by the hydrator
      *
-     * @param  mixed                 $value   The original value
+     * @param  mixed                 $value    The original value
+     * @param  string                $property The name of the property
      * @param  HydrationContext|null $context
      * @return mixed
      */
-    public function hydrate($value, HydrationContext $context = null);
+    public function hydrate($value, $property, HydrationContext $context = null);
 }

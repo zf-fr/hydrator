@@ -50,7 +50,7 @@ class ClosureStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, ExtractionContext $context = null)
+    public function extract($value, $property, ExtractionContext $context = null)
     {
         if (!$this->extractionClosure) {
             return $value;
@@ -64,7 +64,7 @@ class ClosureStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, HydrationContext $context = null)
+    public function hydrate($value, $property, HydrationContext $context = null)
     {
         if (!$this->hydrationClosure) {
             return $value;

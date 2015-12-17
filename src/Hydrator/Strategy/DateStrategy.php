@@ -65,7 +65,7 @@ final class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, ExtractionContext $context = null)
+    public function extract($value, $property, ExtractionContext $context = null)
     {
         if (is_int($value)) {
             $timestamp = $value;
@@ -83,7 +83,7 @@ final class DateStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, HydrationContext $context = null)
+    public function hydrate($value, $property, HydrationContext $context = null)
     {
         return new DateTime($value);
     }
