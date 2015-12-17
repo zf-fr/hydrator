@@ -21,6 +21,7 @@ namespace Hydrator\Strategy;
 use Hydrator\Context\ExtractionContext;
 use Hydrator\Context\HydrationContext;
 use Hydrator\HydratorInterface;
+use Hydrator\NamingStrategy\ProvidesNamingStrategyTrait;
 
 /**
  * This strategy allows to set another hydrator for a given strategy. This is especially
@@ -28,6 +29,8 @@ use Hydrator\HydratorInterface;
  */
 class HydratorStrategy implements StrategyInterface
 {
+    use ProvidesNamingStrategyTrait;
+
     /**
      * @var HydratorInterface
      */
@@ -44,10 +47,10 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function extract($value, ExtractionContext $context = null)
+    public function extract($value, $property, ExtractionContext $context = null)
     {
         if (is_object($value)) {
-            return $this->hydrator->extract($value, $context);
+            return $this->hydrator->extract($value);
         }
 
         return $value;
@@ -56,10 +59,14 @@ class HydratorStrategy implements StrategyInterface
     /**
      * {@inheritDoc}
      */
-    public function hydrate($value, HydrationContext $context = null)
+    public function hydrate($value, $property, HydrationContext $context = null)
     {
         if (is_array($value)) {
-            return $this->hydrator->hydrate($value, $context);
+            $property = $this->namingStrategy->getNameForHydration($property, $context);
+            $method   = 'get' . $property;
+            $object = $context->object->{$method}();
+
+            return $this->hydrator->hydrate($value, $object);
         }
 
         return $value;
